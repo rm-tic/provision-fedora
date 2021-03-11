@@ -22,7 +22,7 @@ pkgs:
   - autokey-gtk
   - calibre
   - curl
-  - @Development tools
+  - '@Development tools'
   - enpass
   - flameshot
   - gimp
