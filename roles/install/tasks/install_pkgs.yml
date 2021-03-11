@@ -23,16 +23,14 @@
     mode: '0644'
     owner: root
 
-- name: Enable Repositories
-  dnf:
-    enablerepo: "{{ item }}"
+- name: Enable YUM Repositories
+  command: config-manager --set-enabled "{{ item }}"
   loop:
     - google-chrome
     - enpass
 
-- name: Disable Repositories
-  dnf:
-    disablerepo: rpmfusion-nonfree-nvidia-driver
+- name: Disable YUM Repositories
+  command: config-manager --set-disabled rpmfusion-nonfree-nvidia-driver
 
 - name: DNF Cache Update
   dnf:
