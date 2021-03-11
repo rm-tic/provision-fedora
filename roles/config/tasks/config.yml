@@ -44,3 +44,7 @@
 
 - name: Reload Fonts
   command: fc-cache -vfs "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts/"
+
+- name: Import GNOME Terminal profile
+  command: dconf load /org/gnome/terminal/legacy/profiles:/ < "/home/{{ ansible_env.SUDO_USER }}/.gterm-profile.dconf"
+  become_user: "{{ ansible_env.SUDO_USER }}"
