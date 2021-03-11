@@ -41,7 +41,8 @@
 - name: Install Packages .rpm from URL
   dnf:
     name: "{{ item }}"
-    state: latest
+    state: present
+    disable_gpg_check: yes
   loop: "{{ pkgs_urls }}"
 
 - name: Install Packages from Repository
