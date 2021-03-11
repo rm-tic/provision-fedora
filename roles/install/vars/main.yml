@@ -26,9 +26,8 @@ pkgs:
   - gimp
   - google-chrome-stable
   - gparted
-  - handbrake
   - htop
-  - imagemagick
+  - ImageMagick
   - jq
   - openssh-server
   - p7zip
