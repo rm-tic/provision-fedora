@@ -81,3 +81,8 @@
     state: present
     method: system
   with_items: "{{ flatpak_pkgs }}"
+
+- name: Upgrade Packages
+  dnf:
+    name: "*"
+    state: latest

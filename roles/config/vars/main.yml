@@ -5,6 +5,8 @@ wallpaper:
   value: "'file:///home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png'"
 
 config_files:
+- src: .bashrc
+  dest: /home/{{ ansible_env.SUDO_USER }}
 - src: .bash_aliases
   dest: /home/{{ ansible_env.SUDO_USER }}
 - src: aliases.zsh
