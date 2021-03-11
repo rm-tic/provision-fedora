@@ -25,12 +25,16 @@
 
 - name: Enable YUM Repositories
   command: dnf config-manager --set-enabled "{{ item }}"
+  args:
+    warn: false
   loop:
     - google-chrome
     - enpass
 
 - name: Disable YUM Repositories
   command: dnf config-manager --set-disabled rpmfusion-nonfree-nvidia-driver
+  args:
+    warn: false
 
 - name: DNF Cache Update
   dnf:
