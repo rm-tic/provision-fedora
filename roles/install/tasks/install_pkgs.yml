@@ -38,15 +38,22 @@
   dnf:
     update_cache: yes
 
-- name: Install Packages .rpm from URL
+- name: Download Packages
+  get_url:
+    url: "{{ item.url }}"
+    dest: /tmp/"{{ item.name }}"
+    mode: '0644'
+  loop: "{{ pkgs_rpm }}"
+
+- name: Install RPM Packages
   dnf:
-    name: "{{ item }}"
+    name: /tmp/"{{ item.name }}"
     state: present
     disable_gpg_check: yes
-  loop: "{{ pkgs_urls }}"
+  loop: "{{ pkgs_rpm }}"
 
 - name: Install Packages from Repository
-  apt:
+  dnf:
     name: "{{ item }}"
     state: latest
   loop: "{{ pkgs }}"

@@ -8,9 +8,11 @@ remove_pkgs:
   - gnome-weather
   - libreoffice*
 
-pkgs_urls:
-  - "{{ url_rpm_etcher.stdout }}" #BalenaEtcher
-  - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm #TeamViewer
+pkgs_rpm:
+  - url: "{{ url_rpm_etcher.stdout }}"
+    name: etcher.x86_64.rpm
+  - url: https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+    name: teamviewer.x86_64.rpm 
 
 pkgs:
   - anki
