@@ -8,6 +8,10 @@
     mode: 0644
   loop: "{{ config_files }}"
 
+- name: Install ZSH Theme Powerlevel10k
+  command: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "/home/{{ ansible_env.SUDO_USER }}/powerlevel10k"
+  become_user: "{{ ansible_env.SUDO_USER }}"
+
 - name: Create Wallpaper Directory 
   file:
     path: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers"
@@ -31,20 +35,12 @@
     state: present
   become_user: "{{ ansible_env.SUDO_USER }}"
   loop: "{{ wallpaper }}"
-  
-- name: Create path /usr/share/fonts/wps-fonts
-  file:
-    path: /usr/share/fonts/wps-fonts
-    state: directory
-    owner: root
-    group: root
 
-- name: Extract wps-fonts.tar.gz
+- name: Extract fonts.tar.gz
   unarchive:
-    src: wps-fonts.tar.gz
-    dest: /usr/share/fonts/wps-fonts
-    owner: root
-    group: root
+    src: fonts.tar.gz
+    dest: "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts"
+  become_user: "{{ ansible_env.SUDO_USER }}"
 
 - name: Reload Fonts
-  command: fc-cache -vfs
+  command: fc-cache -vfs "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts/"
