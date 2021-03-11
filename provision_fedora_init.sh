@@ -105,10 +105,10 @@ function MAIN()
    echo
    echo "+------------------------------------+"
    echo "| Invencible (Ansible)               |"
-   echo "|------------------------------------|"
+   echo "+------------------------------------+"
    echo "| Project : provision-fedora         |"
    echo "| Author  : Rodrigo Martins (IceTux) |"
-   echo "| Updated : 2021-03-10               |"
+   echo "| Updated : 2021-03-11               |"
    echo "+------------------------------------+"
    echo
    echo
