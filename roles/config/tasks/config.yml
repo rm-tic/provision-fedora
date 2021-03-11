@@ -32,18 +32,19 @@
   become_user: "{{ ansible_env.SUDO_USER }}"
   loop: "{{ wallpaper }}"
   
-- name: Create path /tmp/wps-fonts
+- name: Create path /usr/share/fonts/wps-fonts
   file:
-    path: /tmp/wps-fonts
+    path: /usr/share/fonts/wps-fonts
     state: directory
-  tags: fonts
+    owner: root
+    group: root
 
 - name: Extract wps-fonts.tar.gz
   unarchive:
     src: wps-fonts.tar.gz
-    dest: /tmp/wps-fonts
-  tags: fonts
+    dest: /usr/share/fonts/wps-fonts
+    owner: root
+    group: root
 
-- name: Install WPS Fonts
-  script: /tmp/wps-fonts/install.sh
-  tags: fonts
+- name: Reload Fonts
+  command: fc-cache -vfs

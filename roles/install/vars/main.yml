@@ -45,6 +45,7 @@ flatpak_pkgs:
   - io.github.celluloid_player.Celluloid
   - com.visualstudio.code
   - com.discordapp.Discord
+  - fr.handbrake.ghb
   - com.wps.Office
   - com.getpostman.Postman
   - com.obsproject.Studio
