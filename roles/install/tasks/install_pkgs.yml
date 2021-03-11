@@ -1,0 +1,60 @@
+---
+
+- name: Include Task repo.yml
+  include: add_repo.yml
+
+- name: Include Task latest.yml
+  include: url_deb_latest.yml
+
+- name: Update /etc/apt/sources.list
+  copy:
+    src: sources.list
+    dest: /etc/apt
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Update Repository
+  apt:
+    update-cache: yes
+  tags: apt_update
+
+- name: Install Packages .deb from URL
+  apt:
+    deb: "{{ item }}"
+    state: present
+  loop: "{{ pkgs_urls }}"
+  tags: pkgs_install
+
+- name: Install Packages from Repository
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ pkgs }}"
+  tags: pkgs_install
+
+- name: Install Oh My Zsh!
+  shell: >
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  become_user: "{{ ansible_env.SUDO_USER }}"
+  tags: zsh
+
+- name: Change Default SHELL to ZSH
+  user:
+    name: "{{ ansible_env.SUDO_USER }}"
+    shell: /usr/bin/zsh
+  tags: zsh
+
+- name: Add Flathub Flatpak Repository
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    method: system
+
+- name: Flatpak | Install Flathub Packages
+  flatpak:
+    name: "{{ item }}"
+    state: present
+    method: system
+  with_items: "{{ flatpak_pkgs }}"

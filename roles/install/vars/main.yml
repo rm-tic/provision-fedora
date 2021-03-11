@@ -1,0 +1,71 @@
+---
+# vars file for install
+
+remove_pkgs:
+  - evolution
+  - gnome-calendar
+  - gnome-contacts
+  - gnome-games
+  - gnome-maps
+  - gnome-music
+  - gnome-weather
+  - libreoffice*
+  - transmission*
+
+apt_key_urls:
+  - https://dl.google.com/linux/linux_signing_key.pub #GoogleChrome
+  - https://apt.enpass.io/keys/enpass-linux.key
+
+apt_repo_urls:
+  - url: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main #GoogleChrome
+    filename: google-chrome
+  - url: deb https://apt.enpass.io/ stable main #Enpass
+    filename: enpass
+
+pkgs_urls:
+  - "{{ url_deb_etcher.stdout }}" #BalenaEtcher
+  - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb #TeamViewer
+
+pkgs:
+  - autokey-common
+  - autokey-gtk
+  - build-essential
+  - curl
+  - dconf-cli
+  - deborphan
+  - enpass
+  - flatpak
+  - gimp
+  - gnome-software-plugin-flatpak
+  - google-chrome-stable
+  - gparted
+  - handbrake
+  - htop
+  - imagemagick
+  - jq
+  - linux-headers-amd64
+  - openssh-server
+  - p7zip-full
+  - p7zip-rar
+  - peek
+  - qbittorrent
+  - tmux
+  - uget
+  - uuid-runtime
+  - vim
+  - xclip
+  - youtube-dl
+  - zsh
+
+flatpak_pkgs:
+  - net.ankiweb.Anki
+  - com.calibre_ebook.calibre
+  - io.github.celluloid_player.Celluloid
+  - com.visualstudio.code
+  - com.discordapp.Discord
+  - org.flameshot.Flameshot
+  - com.wps.Office
+  - com.getpostman.Postman
+  - com.obsproject.Studio
+  - com.valvesoftware.Steam
+  - io.typora.Typora
