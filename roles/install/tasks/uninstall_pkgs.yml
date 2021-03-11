@@ -1,9 +1,6 @@
 ---
 
 - name: Uninstall Packages
-  apt:
+  dnf:
     name: "{{ remove_pkgs }}"
     state: absent
-    purge: yes
-    autoclean: yes
-    autoremove: yes

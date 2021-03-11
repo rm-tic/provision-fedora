@@ -1,0 +1,8 @@
+---
+
+- name: Get Balena Etcher Package Latest Version URL
+  shell: >-
+    curl -s "https://api.github.com/repos/balena-io/etcher/releases/latest" | egrep -o 'https.*x86_64.rpm'
+  register: url_rpm_etcher
+  args:
+    warn: false

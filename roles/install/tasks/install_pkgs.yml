@@ -1,37 +1,48 @@
 ---
 
-- name: Include Task repo.yml
-  include: add_repo.yml
-
 - name: Include Task latest.yml
-  include: url_deb_latest.yml
+  include: url_rpm_latest.yml
 
-- name: Update /etc/apt/sources.list
+- name: Update /etc/dnf/dnf.conf
   copy:
-    src: sources.list
-    dest: /etc/apt
+    src: dnf.conf
+    dest: /etc/dnf
     owner: root
     group: root
     mode: '0644'
 
-- name: Update Repository
-  apt:
-    update-cache: yes
-  tags: apt_update
-
-- name: Install Packages .deb from URL
-  apt:
-    deb: "{{ item }}"
+- name: Install Repositories
+  dnf:
+    name: "{{ item }}"
     state: present
+  loop: "{{ repo }}"
+
+- name: Enable Repositories
+  dnf:
+    enablerepo: "{{ item }}"
+  loop:
+    - google-chrome
+    - enpass
+
+- name: Disable Repositories
+  dnf:
+    disablerepo: rpmfusion-nonfree-nvidia-driver
+
+- name: DNF Cache Update
+  dnf:
+    update_cache: yes
+
+- name: Install Packages .rpm from URL
+  dnf:
+    name: "{{ item }}"
+    state: latest
   loop: "{{ pkgs_urls }}"
-  tags: pkgs_install
 
 - name: Install Packages from Repository
   apt:
     name: "{{ item }}"
-    state: present
+    state: latest
   loop: "{{ pkgs }}"
-  tags: pkgs_install
 
 - name: Install Oh My Zsh!
   shell: >

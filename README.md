@@ -1,12 +1,12 @@
-# Ansible Provision Workstation Debian
+# Ansible Provision Workstation Fedora
 
 <p align="center">
-  <img src="img/debian_logo.png">
+  <img src="img/fedora_logo.png">
 </p>
 
-#### Distro suportada: Debian 10
+#### Distro suportada: Fedora 33
 
-Esta receita provisiona uma estação de trabalho recém formatada com Debian 10
+Esta receita provisiona uma estação de trabalho recém formatada com Fedora 33
 
 - Instala diversos pacotes GUI/CLI
 - Arquivos de configuração customizados
@@ -18,5 +18,5 @@ Esta receita provisiona uma estação de trabalho recém formatada com Debian 10
 
 **SHELL**
 ```bash
-wget -qO- https://raw.githubusercontent.com/rm-tic/provision-buster/master/provision_buster_init.sh | sudo bash -
+wget -qO- https://raw.githubusercontent.com/rm-tic/provision-fedora/master/provision_fedora_init.sh | sudo bash -
 ```
