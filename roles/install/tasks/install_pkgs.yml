@@ -41,13 +41,13 @@
 - name: Download Packages
   get_url:
     url: "{{ item.url }}"
-    dest: /tmp/"{{ item.name }}"
+    dest: "/tmp/{{ item.name }}"
     mode: '0644'
   loop: "{{ pkgs_rpm }}"
 
 - name: Install RPM Packages
   dnf:
-    name: /tmp/"{{ item.name }}"
+    name: "/tmp/{{ item.name }}"
     state: present
     disable_gpg_check: yes
   loop: "{{ pkgs_rpm }}"
