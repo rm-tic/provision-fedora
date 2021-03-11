@@ -1,10 +1,6 @@
 ---
 # vars file for install
 
-repo:
-  - fedora-workstation-repositories
-  - https://yum.enpass.io/enpass-yum.repo
-
 remove_pkgs:
   - gnome-calendar
   - gnome-contacts

@@ -11,11 +11,17 @@
     group: root
     mode: '0644'
 
-- name: Install Repositories
+- name: Install Fedora Workstation Repository 
   dnf:
-    name: "{{ item }}"
+    name: fedora-workstation-repositories
     state: present
-  loop: "{{ repo }}"
+
+- name: Install Enpass Repository
+  get_url:
+    url: https://yum.enpass.io/enpass-yum.repo
+    dest: /etc/yum.repos.d/enpass-yum.repo
+    mode: '0644'
+    owner: root
 
 - name: Enable Repositories
   dnf:
