@@ -32,7 +32,7 @@ function INSTALL()
    fi
 
    if [ "$CURL_STATUS" = "absent" ]; then
-      sudo dnf install -y curl > &>/dev/null
+      sudo dnf install -y curl &>/dev/null
       echo ">> curl installed."
    else
       echo ">> curl is already installed."
