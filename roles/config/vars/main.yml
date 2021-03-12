@@ -15,5 +15,3 @@ config_files:
   dest: /home/{{ ansible_env.SUDO_USER }}
 - src: .tmux.conf
   dest: /home/{{ ansible_env.SUDO_USER }}
-- src: .gterm-profile.dconf
-  dest: /home/{{ ansible_env.SUDO_USER }}
