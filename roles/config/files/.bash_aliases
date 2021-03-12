@@ -37,3 +37,7 @@ t2() { tmux new-session\; split-window -v -p 50\; select-pane -t0 ;}
 t3() { tmux new-session\; split-window -v -p 66\; split-window -v\; select-pane -t0 ;}
 
 t4() { tmux new-session \; split-window -v -p 50\; split-window -h\; select-pane -t0\; split-window -h\; select-pane -t0 ;}
+
+# GTERM PROFILE
+dconf-load(){ dconf load /org/gnome/terminal/legacy/profiles:/ < ~/.gterm-profile.dconf ;} 
+dconf-dump(){ dconf dump /org/gnome/terminal/legacy/profiles:/ > ~/.gterm-profile.dconf ;}

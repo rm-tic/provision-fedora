@@ -2,20 +2,6 @@
 
 PLAY_USER="$USER"
 
-function GTERM_LOAD()
-{
-   GTERM_URL="https://raw.githubusercontent.com/rm-tic/provision-fedora/main/gterm-profile.dconf"
-   GTERM_FILE="gterm-profile.conf"
-
-   wget -qO /tmp/$GTERM_FILE $GTERM_URL
-
-   # DCONF EXPORT
-   #dconf dump /org/gnome/terminal/legacy/profiles:/ > $GTERM_FILE
-   
-   # DCONF IMPORT
-   dconf load /org/gnome/terminal/legacy/profiles:/ < /tmp/$GTERM_FILE
-}
-
 function CHECK_INSTALL()
 {
    PKG="$(rpm -qa $1)"
@@ -128,7 +114,6 @@ function MAIN()
    echo
 
    #Exec Functions
-   GTERM_LOAD
    INSTALL
    CLONE_REPO
    CREATE_VENV
