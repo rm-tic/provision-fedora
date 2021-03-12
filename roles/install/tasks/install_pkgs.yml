@@ -60,6 +60,27 @@
     state: latest
   loop: "{{ pkgs }}"
 
+- name: Check Docker-CE is Installed
+  shell: >
+    type docker &>/dev/null ; echo $?
+  args:
+    executable: /bin/bash
+  register: docker
+
+- name: Install Docker-CE
+  shell: >
+    curl -fsSL https://get.docker.com | bash -
+  args:
+    executable: /bin/bash
+    warn: no
+  when: docker.stdout != 0
+
+- name: Add User to docker Group
+  user:
+    name: "{{ ansible_env.SUDO_USER }}"
+    groups: docker
+    append: yes
+
 - name: Install Oh My Zsh!
   shell: >
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

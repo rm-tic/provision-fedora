@@ -36,6 +36,14 @@
   become_user: "{{ ansible_env.SUDO_USER }}"
   loop: "{{ wallpaper }}"
 
+- name: Create Local Fonts Path
+  file:
+    path: "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0755
+    state: directory
+
 - name: Extract fonts.tar.gz
   unarchive:
     src: fonts.tar.gz
