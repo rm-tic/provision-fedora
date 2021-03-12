@@ -52,11 +52,3 @@
 
 - name: Reload Fonts
   command: fc-cache -vfs "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts/"
-
-- name: Reload .bashrc
-  command: source "/home/{{ ansible_env.SUDO_USER }}/.bashrc"
-  become_user: "{{ ansible_env.SUDO_USER }}"
-
-- name: DCONF Load
-  command: dconf-load
-  become_user: "{{ ansible_env.SUDO_USER }}"
