@@ -7,7 +7,7 @@ function GTERM_LOAD()
    GTERM_DIR="$HOME/.gterm"
    GTERM_FILE="$GTERM_DIR/gterm-profile.dconf"
    GTERM_RC="$GTERM_DIR/gterm.rc"
-   GTERM_URL="https://raw.githubusercontent.com/rm-tic/provision-fedora/master/gterm-profile.dconf"
+   GTERM_URL="https://raw.githubusercontent.com/rm-tic/provision-fedora/main/gterm-profile.dconf"
 
    if [[ ! -d $GTERM_DIR  || "$(cat $GTERM_RC)" != "0" ]]; then
    
