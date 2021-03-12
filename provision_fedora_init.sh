@@ -4,26 +4,16 @@ PLAY_USER="$USER"
 
 function GTERM_LOAD()
 {
-   GTERM_DIR="$HOME/.gterm"
-   GTERM_FILE="$GTERM_DIR/gterm-profile.dconf"
-   GTERM_RC="$GTERM_DIR/gterm.rc"
    GTERM_URL="https://raw.githubusercontent.com/rm-tic/provision-fedora/main/gterm-profile.dconf"
+   GTERM_FILE="gterm-profile.conf"
 
-   if [[ ! -d $GTERM_DIR  || "$(cat $GTERM_RC)" != "0" ]]; then
+   wget -qO /tmp/$GTERM_FILE $GTERM_URL
+
+   # DCONF EXPORT
+   #dconf dump /org/gnome/terminal/legacy/profiles:/ > $GTERM_FILE
    
-      mkdir $GTERM_DIR
-      echo "0" > $GTERM_RC
-
-      wget -qO $GTERM_FILE $GTERM_URL
-
-      #DCONF EXPORT
-      #dconf dump /org/gnome/terminal/legacy/profiles:/ > $GTERM_FILE
-
-      #DCONF IMPORT
-      dconf load /org/gnome/terminal/legacy/profiles:/ < $GTERM_FILE
-
-   fi
-
+   # DCONF IMPORT
+   dconf load /org/gnome/terminal/legacy/profiles:/ < /tmp/$GTERM_FILE
 }
 
 function CHECK_INSTALL()
@@ -106,7 +96,7 @@ function CREATE_VENV()
 
 function ENABLE_VENV()
 {
-   . "$REPO_DIR/.venv/bin/activate"
+   source "$REPO_DIR/.venv/bin/activate"
 }
 
 function SETUP_VENV()
