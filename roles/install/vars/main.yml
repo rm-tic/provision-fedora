@@ -24,6 +24,7 @@ pkgs:
   - enpass
   - flameshot
   - gimp
+  - gnome-tweaks
   - google-chrome-stable
   - gparted
   - htop
