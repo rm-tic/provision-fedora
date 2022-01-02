@@ -29,6 +29,7 @@ pkgs:
   - htop
   - ImageMagick
   - jq
+  - openfortivpn
   - openssh-server
   - p7zip
   - p7zip-plugins
@@ -48,6 +49,7 @@ flatpak_pkgs:
   - com.getpostman.Postman
   - com.obsproject.Studio
   - com.visualstudio.code
+  - com.slack.Slack
   - in.srev.guiscrcpy
   - io.dbeaver.DBeaverCommunity
   - io.github.celluloid_player.Celluloid

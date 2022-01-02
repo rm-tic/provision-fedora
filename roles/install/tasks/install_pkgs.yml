@@ -1,10 +1,9 @@
 ---
-
 - name: Include Task latest.yml
   include: url_rpm_latest.yml
 
 - name: Update /etc/dnf/dnf.conf
-  copy:
+  ansible.builtin.copy:
     src: dnf.conf
     dest: /etc/dnf
     owner: root
@@ -12,102 +11,84 @@
     mode: '0644'
 
 - name: Install Fedora Workstation Repository 
-  dnf:
+  ansible.builtin.dnf:
     name: fedora-workstation-repositories
     state: present
 
+- name: Install Fedora Fusion Repository 
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
+    - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
+
 - name: Install Enpass Repository
-  get_url:
+  ansible.builtin.get_url:
     url: https://yum.enpass.io/enpass-yum.repo
     dest: /etc/yum.repos.d/enpass-yum.repo
     mode: '0644'
     owner: root
 
 - name: Enable YUM Repositories
-  command: dnf config-manager --set-enabled "{{ item }}"
+  ansible.builtin.command: dnf config-manager --set-enabled "{{ item }}"
   args:
     warn: false
   loop:
     - google-chrome
     - enpass
 
-- name: Disable YUM Repositories
-  command: dnf config-manager --set-disabled rpmfusion-nonfree-nvidia-driver
-  args:
-    warn: false
-
 - name: DNF Cache Update
-  dnf:
+  ansible.builtin.dnf:
     update_cache: yes
 
 - name: Download Packages
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "/tmp/{{ item.name }}"
     mode: '0644'
   loop: "{{ pkgs_rpm }}"
 
 - name: Install RPM Packages
-  dnf:
+  ansible.builtin.dnf:
     name: "/tmp/{{ item.name }}"
     state: present
     disable_gpg_check: yes
   loop: "{{ pkgs_rpm }}"
 
 - name: Install Packages from Repository
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ item }}"
     state: latest
   loop: "{{ pkgs }}"
 
-- name: Check Docker-CE is Installed
-  shell: >
-    type docker &>/dev/null ; echo $?
-  args:
-    executable: /bin/bash
-  register: docker
-
-- name: Install Docker-CE
-  shell: >
-    curl -fsSL https://get.docker.com | bash -
-  args:
-    executable: /bin/bash
-    warn: no
-  when: docker.stdout != 0
-
-- name: Add User to docker Group
-  user:
-    name: "{{ ansible_env.SUDO_USER }}"
-    groups: docker
-    append: yes
-
 - name: Install Oh My Zsh!
-  shell: >
+  ansible.builtin.shell: >
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   become_user: "{{ ansible_env.SUDO_USER }}"
   tags: zsh
 
 - name: Change Default SHELL to ZSH
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_env.SUDO_USER }}"
     shell: /usr/bin/zsh
   tags: zsh
 
-- name: Add Flathub Flatpak Repository
-  flatpak_remote:
+- name: Flatpak - Add Flathub Repository
+  community.general.flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
     method: system
 
-- name: Flatpak | Install Flathub Packages
-  flatpak:
+- name: Flatpak - Install Flathub Packages
+  community.general.flatpak:
     name: "{{ item }}"
     state: present
     method: system
   with_items: "{{ flatpak_pkgs }}"
 
 - name: Upgrade Packages
-  dnf:
+  ansible.builtin.dnf:
     name: "*"
     state: latest
