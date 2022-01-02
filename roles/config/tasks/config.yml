@@ -52,7 +52,3 @@
     state: present
   become_user: "{{ ansible_env.SUDO_USER }}"
   loop: "{{ wallpaper }}"
-
-- name: Install ZSH Theme Powerlevel10k
-  ansible.builtin.command: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "/home/{{ ansible_env.SUDO_USER }}/powerlevel10k"
-  become_user: "{{ ansible_env.SUDO_USER }}"
