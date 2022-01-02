@@ -1,127 +1,95 @@
 #!/bin/bash
 
-PLAY_USER="$USER"
+# Author: Rodrigo Martins
+# E-mail: rodrigomartins.tic@gmail.com
 
-function CHECK_INSTALL()
-{
-   PKG="$(rpm -qa $1)"
 
-   if [ ! -z "$PKG" ]; then
-      echo "present"
+function dnf_cache(){
+   dnf makecache -q
+}
+
+function pkg_setup(){
+   local PKG="$1"
+
+   type -P $PKG &>/dev/null && local PKG_STATUS="OK" || local PKG_STATUS="NOK"
+
+   if [ "$PKG_STATUS" = "NOK" ]; then
+      $sh_c 'dnf install -y '$PKG' > /dev/null 2>&1'
+      echo ">>> Package: $PKG installed"
    else
-      echo "absent"
+      echo ">>> Package: $PKG is already installed"
    fi
 }
 
-function INSTALL()
-{
-   GIT_STATUS="$(CHECK_INSTALL git)"
-   CURL_STATUS="$(CHECK_INSTALL curl)"
-   PYTHON3_VENV_STATUS="$(CHECK_INSTALL python3-virtualenv)"
-   PYTHON3_PSUTIL_STATUS="$(CHECK_INSTALL python3-psutil)"
-   PYTHON3_PIP_STATUS="$(CHECK_INSTALL python3-pip)"
-
-   echo "Installing Essential Packages..."
-   echo
-
-   if [ "$GIT_STATUS" = "absent" ]; then
-      sudo dnf install -y git &>/dev/null
-      echo ">> Git v$(git --version | awk '{print $3}') installed."
-   else
-      echo ">> Git is already installed."
-   fi
-
-   if [ "$CURL_STATUS" = "absent" ]; then
-      sudo dnf install -y curl &>/dev/null
-      echo ">> curl installed."
-   else
-      echo ">> curl is already installed."
-   fi
-
-   if [ "$PYTHON3_VENV_STATUS" = "absent" ]; then
-      sudo dnf install -y python3-virtualenv &>/dev/null
-      echo ">> python3-virtualenv installed."
-   else
-      echo ">> python3-virtualenv is already installed."
-   fi
-
-   if [ "$PYTHON3_PSUTIL_STATUS" = "absent" ]; then
-      sudo dnf install -y python3-psutil &>/dev/null
-      echo ">> python3-psutil installed."
-   else
-      echo ">> python3-psutil is already installed."
-   fi
-
-   if [ "$PYTHON3_PIP_STATUS" = "absent" ]; then
-      sudo dnf install -y python3-pip &>/dev/null
-      echo ">> python3-pip installed."
-   else
-      echo ">> python3-pip is already installed."
-   fi
-
-   echo
-
-}
-
-function CLONE_REPO()
-{
+function gh_clone_repo(){
    REPO_DIR="/tmp/provision-fedora"
    REPO_URL="https://github.com/rm-tic/provision-fedora.git"
 
-   echo "Cloning Repository in $REPO_DIR"
-
-   git clone $REPO_URL $REPO_DIR &>/dev/null
-
+   echo ">>> Cloning repository in $REPO_DIR..."
    echo
+   git clone $REPO_URL $REPO_DIR > /dev/null 2>&1
 }
 
-function CREATE_VENV()
-{
-   python3 -m venv "$REPO_DIR/.venv"
+function python_venv_create(){
+   echo ">>> Creating python3 virtualenv..."
+   python3 -m virtualenv -q "$REPO_DIR/.venv"
 }
 
-function ENABLE_VENV()
-{
+function python_venv_activate(){
+   echo ">>> Enabling virtualenv..."
+   echo
    source "$REPO_DIR/.venv/bin/activate"
 }
 
-function SETUP_VENV()
-{
-   python3 -m pip install --upgrade pip > /dev/null 2>&1
-   python3 -m pip install ansible > /dev/null 2>&1
+function python_venv_setup(){
+   echo ">>> Installing playbook dependencies via pip..."
+   echo
+   python3 -m pip -q install -U -r "$REPO_DIR/reqs.txt"
 }
 
-function EXEC_ANSIBLE()
-{
+function ansible_collections(){
+   echo ">>> Ansible: Install community.general collection"
    echo
-   echo "Starting Playbook..."
-   echo
-   ansible-playbook -i "$REPO_DIR/hosts" "$REPO_DIR/main.yml"
+   ansible-galaxy collection install community.general > /dev/null 2>&1
 }
 
-function MAIN()
-{
-
+function ansible_run(){
+   echo ">>> Ansible: Starting playbook..."
    echo
-   echo "+------------------------------------+"
-   echo "| Invencible (Ansible)               |"
-   echo "+------------------------------------+"
-   echo "| Project : provision-fedora         |"
-   echo "| Author  : Rodrigo Martins (IceTux) |"
-   echo "| Updated : 2021-03-11               |"
-   echo "+------------------------------------+"
-   echo
-   echo
-
-   #Exec Functions
-   INSTALL
-   CLONE_REPO
-   CREATE_VENV
-   ENABLE_VENV
-   SETUP_VENV
-   EXEC_ANSIBLE
-
+   ansible-playbook "$REPO_DIR/main.yml"
 }
 
+function main(){
 
-MAIN
+   if [ "$(id -un)" = "root" ]; then
+      sh_c="sh -c"
+   else
+      sh_c="sudo sh -c"
+   fi
+
+   echo
+   echo "+----------------------------------+"
+   echo "| Invencible (Ansible)             |"
+   echo "| Project: provision-debian        |"
+   echo "| Author: Rodrigo Martins (IceTux) |"
+   echo "| Creation Date: 2022-01-02        |"
+   echo "+----------------------------------+"
+   echo
+   echo
+
+   # Install Essential Packages
+   dnf_cache
+   pkg_setup git
+   pkg_setup curl
+   pkg_setup python3-virtualenv
+   
+   # Load Functions
+   gh_clone_repo
+   python_venv_create
+   python_venv_activate
+   python_venv_setup
+   ansible_collections
+   ansible_run
+}
+
+main $@

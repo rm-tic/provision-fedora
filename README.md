@@ -4,9 +4,9 @@
   <img src="img/fedora_logo.png">
 </p>
 
-#### Distro suportada: Fedora 33
+#### Distro suportada: Fedora 35
 
-Esta receita provisiona uma estação de trabalho recém formatada com Fedora 33
+Esta receita provisiona uma estação de trabalho recém formatada com Fedora 35
 
 - Instala diversos pacotes GUI/CLI
 - Arquivos de configuração customizados
