@@ -15,18 +15,17 @@ pkgs_rpm:
     name: teamviewer.x86_64.rpm 
 
 pkgs:
-  - anki
-  - autokey-common
-  - autokey-gtk
+  - ansible-core
   - calibre
+  - '@container-management'
   - curl
-  - '@Development tools'
   - enpass
   - flameshot
   - gimp
   - gnome-tweaks
   - google-chrome-stable
   - gparted
+  - HandBrake-gui
   - htop
   - ImageMagick
   - jq
@@ -36,19 +35,22 @@ pkgs:
   - peek
   - qbittorrent
   - tmux
+  - tree
   - uget
-  - vim
+  - vim-enhanced
+  - VirtualBox
   - xclip
   - youtube-dl
   - zsh
 
 flatpak_pkgs:
-  - io.github.celluloid_player.Celluloid
-  - com.visualstudio.code
   - com.discordapp.Discord
-  - fr.handbrake.ghb
-  - com.wps.Office
   - com.getpostman.Postman
   - com.obsproject.Studio
-  - com.valvesoftware.Steam
+  - com.visualstudio.code
+  - in.srev.guiscrcpy
+  - io.dbeaver.DBeaverCommunity
+  - io.github.celluloid_player.Celluloid
   - io.typora.Typora
+  - net.ankiweb.Anki
+  - org.onlyoffice.desktopeditors
