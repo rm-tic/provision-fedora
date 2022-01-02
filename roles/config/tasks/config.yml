@@ -1,6 +1,6 @@
 ---
 - name: Copy Custom Config Files to Home Directory
-  copy:
+  ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ ansible_env.SUDO_USER }}"
@@ -8,12 +8,29 @@
     mode: 0644
   loop: "{{ config_files }}"
 
-- name: Install ZSH Theme Powerlevel10k
-  command: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "/home/{{ ansible_env.SUDO_USER }}/powerlevel10k"
-  become_user: "{{ ansible_env.SUDO_USER }}"
+- name: Create Fonts Directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_env.SUDO_USER }}/.fonts"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0755
+    state: directory
+
+- name: Download MesloLGS Fonts
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "/home/{{ ansible_env.SUDO_USER }}/.fonts/{{ item.name }}"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0644
+  loop: "{{ url_fonts }}"
+
+- name: Load MesloLGS Fonts
+  ansible.builtin.shell: >
+    fc-cache -f "/home/{{ ansible_env.SUDO_USER }}/.fonts"
 
 - name: Create Wallpaper Directory 
-  file:
+  ansible.builtin.file:
     path: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
@@ -21,7 +38,7 @@
     state: directory
 
 - name: Copy Pictures to ~/Imagens/Wallpapers
-  copy:
+  ansible.builtin.copy:
     src: root.png
     dest: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png"
     owner: "{{ ansible_env.SUDO_USER }}"
@@ -29,26 +46,13 @@
     mode: 0644
 
 - name: Set Default Wallpaper
-  dconf:
+  community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
     state: present
   become_user: "{{ ansible_env.SUDO_USER }}"
   loop: "{{ wallpaper }}"
 
-- name: Create Local Fonts Path
-  file:
-    path: "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts"
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0755
-    state: directory
-
-- name: Extract fonts.tar.gz
-  unarchive:
-    src: fonts.tar.gz
-    dest: "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts"
+- name: Install ZSH Theme Powerlevel10k
+  ansible.builtin.command: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "/home/{{ ansible_env.SUDO_USER }}/powerlevel10k"
   become_user: "{{ ansible_env.SUDO_USER }}"
-
-- name: Reload Fonts
-  command: fc-cache -vfs "/home/{{ ansible_env.SUDO_USER }}/.local/share/fonts/"
