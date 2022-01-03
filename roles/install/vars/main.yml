@@ -18,8 +18,8 @@ pkgs:
   - ansible-core
   - calibre
   - '@container-management'
-  - cronie
   - curl
+  - dnf-automatic
   - enpass
   - flameshot
   - gimp

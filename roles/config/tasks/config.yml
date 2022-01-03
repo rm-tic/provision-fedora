@@ -7,12 +7,20 @@
     path: "{{ item }}"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0755
+    mode: '0755'
     state: directory
   loop:
     - "/home/{{ ansible_env.SUDO_USER }}/.bashrc.d"
     - "/home/{{ ansible_env.SUDO_USER }}/.fonts"
     - "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers"
+
+- name: Update /etc/dnf/dnf.conf
+  ansible.builtin.copy:
+    src: dnf.conf
+    dest: /etc/dnf
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Copy Custom Config Files to Home Directory
   ansible.builtin.copy:
@@ -20,7 +28,7 @@
     dest: "{{ item.dest }}"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
+    mode: '0644'
   loop: "{{ config_files }}"
 
 - name: Copy .gitconfig
@@ -29,7 +37,15 @@
     dest: "/home/{{ ansible_env.SUDO_USER }}/.gitconfig"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
+    mode: '0644'
+
+- name: Copy automatic.conf
+  ansible.builtin.template:
+    src: automatic.conf.j2
+    dest: /etc/dnf/automatic.conf
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Copy Pictures to ~/Imagens/Wallpapers
   ansible.builtin.copy:

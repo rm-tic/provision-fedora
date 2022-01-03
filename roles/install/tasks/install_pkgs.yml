@@ -2,14 +2,6 @@
 - name: Include Task latest.yml
   include: url_rpm_latest.yml
 
-- name: Update /etc/dnf/dnf.conf
-  ansible.builtin.copy:
-    src: dnf.conf
-    dest: /etc/dnf
-    owner: root
-    group: root
-    mode: '0644'
-
 - name: Install Fedora Workstation Repository 
   ansible.builtin.dnf:
     name: fedora-workstation-repositories
