@@ -1,12 +1,18 @@
 ---
 # vars file for config
+
+hostname: durin
+
+git_name: "Rodrigo Martins"
+git_mail: "rodrigomartins.tic@gmail.com"
+
 wallpaper:
 - key: /org/gnome/desktop/background/picture-uri #Wallpaper
   value: "'file:///home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png'"
 
 config_files:
 - src: .bash_aliases
-  dest: /home/{{ ansible_env.SUDO_USER }}
+  dest: /home/{{ ansible_env.SUDO_USER }}/.bashrc.d
 - src: aliases.zsh
   dest: /home/{{ ansible_env.SUDO_USER }}/.oh-my-zsh/custom
 - src: .vimrc
@@ -14,8 +20,6 @@ config_files:
 - src: .tmux.conf
   dest: /home/{{ ansible_env.SUDO_USER }}
 - src: .digrc
-  dest: /home/{{ ansible_env.SUDO_USER }}
-- src: .gitconfig
   dest: /home/{{ ansible_env.SUDO_USER }}
 
 url_fonts:

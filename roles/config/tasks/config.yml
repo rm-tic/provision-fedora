@@ -1,4 +1,19 @@
 ---
+- name: Set Hostname
+  ansible.builtin.command: hostnamectl hostname "{{ hostname }}"
+
+- name: Creating Directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0755
+    state: directory
+  loop:
+    - "/home/{{ ansible_env.SUDO_USER }}/.bashrc.d"
+    - "/home/{{ ansible_env.SUDO_USER }}/.fonts"
+    - "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers"
+
 - name: Copy Custom Config Files to Home Directory
   ansible.builtin.copy:
     src: "{{ item.src }}"
@@ -8,13 +23,30 @@
     mode: 0644
   loop: "{{ config_files }}"
 
-- name: Create Fonts Directory
-  ansible.builtin.file:
-    path: "/home/{{ ansible_env.SUDO_USER }}/.fonts"
+- name: Copy .gitconfig
+  ansible.builtin.template:
+    src: .gitconfig.j2
+    dest: "/home/{{ ansible_env.SUDO_USER }}/.gitconfig"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0755
-    state: directory
+    mode: 0644
+
+- name: Copy automatic.conf
+  ansible.builtin.template:
+    src: automatic.conf.j2
+    dest: /etc/dnf/automatic.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Enable 
+
+- name: Copy Pictures to ~/Imagens/Wallpapers
+  ansible.builtin.copy:
+    src: root.png
+    dest: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0644
 
 - name: Download MesloLGS Fonts
   ansible.builtin.get_url:
@@ -25,26 +57,6 @@
     mode: 0644
   loop: "{{ url_fonts }}"
 
-- name: Load MesloLGS Fonts
-  ansible.builtin.shell: >
-    fc-cache -f "/home/{{ ansible_env.SUDO_USER }}/.fonts"
-
-- name: Create Wallpaper Directory 
-  ansible.builtin.file:
-    path: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers"
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0755
-    state: directory
-
-- name: Copy Pictures to ~/Imagens/Wallpapers
-  ansible.builtin.copy:
-    src: root.png
-    dest: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png"
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
-
 - name: Set Default Wallpaper
   community.general.dconf:
     key: "{{ item.key }}"
@@ -52,3 +64,15 @@
     state: present
   become_user: "{{ ansible_env.SUDO_USER }}"
   loop: "{{ wallpaper }}"
+
+- name: Load MesloLGS Fonts
+  ansible.builtin.shell: >
+    fc-cache -f "/home/{{ ansible_env.SUDO_USER }}/.fonts"
+
+#- name: Crontab - Create Entry DNF Cache
+  #ansible.builtin.cron:
+    #name: "Create DNF Cache"
+    #hour: "2"
+    #user: root
+    #job: "/usr/bin/dnf makecache"
+    #cron_file: dnf-cache

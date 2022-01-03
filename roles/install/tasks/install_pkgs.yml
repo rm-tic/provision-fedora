@@ -63,9 +63,21 @@
     state: latest
   loop: "{{ pkgs }}"
 
+- name: Install vim-default-editor
+  ansible.builtin.dnf:
+    name: vim-default-editor
+    state: latest
+    allowerasing: yes
+
 - name: Install Oh My Zsh!
   ansible.builtin.shell: >
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  become_user: "{{ ansible_env.SUDO_USER }}"
+  tags: zsh
+
+- name: Install Powerlevel10k ZSH Theme
+  shell: >
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
   become_user: "{{ ansible_env.SUDO_USER }}"
   tags: zsh
 
@@ -74,6 +86,16 @@
     name: "{{ ansible_env.SUDO_USER }}"
     shell: /usr/bin/zsh
   tags: zsh
+
+- name: Install awscli v2
+  ansible.builtin.shell: |
+    wget -q -O "awscliv2.zip" https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    unzip awscliv2.zip
+    bash -c './aws/install'
+  chdir: /tmp
+  args:
+    executable: /bin/bash
+    warn: no
 
 - name: Flatpak - Add Flathub Repository
   community.general.flatpak_remote:
