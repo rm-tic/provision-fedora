@@ -46,6 +46,8 @@
     owner: root
     group: root
     mode: '0644'
+  notify:
+    - Enable dnf-automatic.timer
 
 - name: Copy Pictures to ~/Imagens/Wallpapers
   ansible.builtin.copy:
@@ -53,7 +55,7 @@
     dest: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
+    mode: '0644'
 
 - name: Download MesloLGS Fonts
   ansible.builtin.get_url:
@@ -61,7 +63,7 @@
     dest: "/home/{{ ansible_env.SUDO_USER }}/.fonts/{{ item.name }}"
     owner: "{{ ansible_env.SUDO_USER }}"
     group: "{{ ansible_env.SUDO_USER }}"
-    mode: 0644
+    mode: '0644'
   loop: "{{ url_fonts }}"
 
 - name: Set Default Wallpaper

@@ -1,7 +1,7 @@
 ---
 # vars file for config
 
-hostname: durin
+hostname: thorin
 
 git_name: "Rodrigo Martins"
 git_mail: "rodrigomartins.tic@gmail.com"

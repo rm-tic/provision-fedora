@@ -19,6 +19,7 @@ pkgs:
   - calibre
   - '@container-management'
   - curl
+  - cronie
   - dnf-automatic
   - enpass
   - flameshot
@@ -36,6 +37,7 @@ pkgs:
   - p7zip-plugins
   - peek
   - qbittorrent
+  - timeshift
   - tmux
   - tree
   - uget
