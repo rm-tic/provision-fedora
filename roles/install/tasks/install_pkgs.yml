@@ -84,9 +84,9 @@
     wget -q -O "awscliv2.zip" https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     unzip awscliv2.zip
     bash -c './aws/install'
-  chdir: /tmp
   args:
     executable: /bin/bash
+    chdir: /tmp
     warn: no
 
 - name: Flatpak - Add Flathub Repository
