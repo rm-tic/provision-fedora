@@ -70,7 +70,7 @@ function main(){
    echo
    echo "+----------------------------------+"
    echo "| Invencible (Ansible)             |"
-   echo "| Project: provision-debian        |"
+   echo "| Project: provision-fedora        |"
    echo "| Author: Rodrigo Martins (IceTux) |"
    echo "| Creation Date: 2022-01-02        |"
    echo "+----------------------------------+"
