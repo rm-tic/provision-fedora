@@ -1,8 +1,2 @@
 ---
 # handlers file for install
-
-- name: Enable dnf-automatic.timer
-  ansible.builtin.service:
-    name: dnf-automatic.timer
-    enabled: yes
-    state: started
