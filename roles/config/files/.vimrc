@@ -1,17 +1,21 @@
 " COMMON SETTINGS
+
 syntax on
 set number relativenumber
 
-" --------------------------------------------------------------------------------------
+
+" -----------------------------------------------------------------------------------------
 
 " SHORTCUTS
+
 let mapleader="\<space>"
 nnoremap <leader>src :source ~/.vimrc<cr>
 nnoremap <leader>sh :!bash<cr>
 nnoremap <leader>qq :q!<cr>
 nnoremap <leader>xx :x<cr>
 
-" --------------------------------------------------------------------------------------
+
+" -----------------------------------------------------------------------------------------
 
 " INDENTATION
 
@@ -29,13 +33,20 @@ nnoremap <leader>xx :x<cr>
 " autocmd Filetype yaml setlocal ts=2 sw=2 expandtab
 " autocmd Filetype tf setlocal ts=2 sw=2 expandtab
 
+
 " Default Config
+" --------------
+
 set tabstop=3       " Size of a hard tabstop (ts).
 set shiftwidth=3    " Size of an indentation (sw).
 set expandtab       " Always uses tabs instead of space characters (noet).
 set softtabstop=0   " Number of spaces a <Tab> counts for. When 0, featuer is off (sts).
 set autoindent      " Copy indent from current line when starting a new line.
 set smarttab        " Inserts blanks on a <Tab> key (as per sw, ts and sts).
+
+
+" Functions
+" ---------
 
 function! UseTabs()
   set tabstop=3       " Size of a hard tabstop (ts).
@@ -52,5 +63,11 @@ function! UseSpaces()
   set autoindent      " Copy indent from current line when starting a new line.
   set smarttab        " Inserts blanks on a <Tab> key (as per sw, ts and sts).
 endfunction
+
+
+" -----------------------------------------------------------------------------------------
+
+" Extensions
+" ----------
 
 autocmd Filetype .*yaml,.*yml,.*tf call UseSpaces()
