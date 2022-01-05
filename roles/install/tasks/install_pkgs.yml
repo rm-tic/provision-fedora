@@ -23,13 +23,21 @@
     mode: '0644'
     owner: root
 
+- name: Install Hashicorp Repository
+  ansible.builtin.get_url:
+    url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+    dest: /etc/yum.repos.d/hashicorp.repo
+    mode: '0644'
+    owner: root
+
 - name: Enable YUM Repositories
   ansible.builtin.command: dnf config-manager --set-enabled "{{ item }}"
   args:
     warn: false
   loop:
-    - google-chrome
     - enpass
+    - google-chrome
+    - hashicorp
 
 - name: DNF Cache Update
   ansible.builtin.dnf:

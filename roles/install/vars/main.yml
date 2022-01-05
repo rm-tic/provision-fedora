@@ -2,11 +2,14 @@
 # vars file for install
 
 remove_pkgs:
+  - gnome-boxes
   - gnome-calendar
   - gnome-contacts
   - gnome-maps
-  - gnome-weather
+  - gnome-tour
   - libreoffice*
+  - mediawriter
+  - rhythmbox
 
 pkgs_rpm:
   - url: "{{ url_rpm_etcher.stdout }}"
@@ -21,6 +24,7 @@ pkgs:
   - curl
   - cronie
   - dnf-automatic
+  - dnf-plugins-core
   - enpass
   - flameshot
   - gimp
@@ -35,12 +39,15 @@ pkgs:
   - openssh-server
   - p7zip
   - p7zip-plugins
+  - packer
   - peek
   - qbittorrent
+  - terraform
   - timeshift
   - tmux
   - tree
   - uget
+  - vagrant
   - vim-enhanced
   - VirtualBox
   - xclip
