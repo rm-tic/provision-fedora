@@ -13,8 +13,11 @@ export EDITOR="vim"
 
 # HISTORY
 export HISTTIMEFORMAT='%Y-%m-%d %T  '
-export HISTSIZE=10000
-export HISTFILESIZE=20000
+export HISTSIZE=5000
+export HISTFILESIZE=50000
+shopt -s histappend
+# Save commands immediately to history and sync between sessions
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # ALIAS
 alias pbcopy='xclip -selection clipboard' #Depends xclip package
