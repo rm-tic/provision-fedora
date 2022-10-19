@@ -4,9 +4,9 @@
   <img src="img/fedora_logo.png">
 </p>
 
-#### Distro suportada: Fedora 35
+#### Distro suportada: Fedora 37
 
-Esta receita provisiona uma estação de trabalho recém formatada com Fedora 35
+Este playbook provisiona um workstation recém formatado com Fedora 37
 
 - Instala diversos pacotes GUI/CLI
 - Arquivos de configuração customizados
