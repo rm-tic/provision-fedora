@@ -2,5 +2,5 @@
 
 - name: Uninstall Packages
   ansible.builtin.dnf:
-    name: "{{ remove_pkgs }}"
+    name: "{{ remove_packages }}"
     state: absent

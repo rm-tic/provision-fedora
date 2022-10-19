@@ -3,5 +3,7 @@
   become: true
   
   roles:
-    - { role: install, tags: ['role_install'] }
-    - { role: config, tags: ['role_config'] }
+    - role: install
+      tags: role_install
+    - role: config
+      tags: role_config

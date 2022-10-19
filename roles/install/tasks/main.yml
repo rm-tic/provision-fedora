@@ -1,4 +1,7 @@
 ---
 # tasks file for install
-- include: uninstall_pkgs.yml
-- include: install_pkgs.yml
+- name: Uninstall Packages 
+  include_tasks: uninstall_packages.yml
+
+- name: Install Packages
+  include_tasks: install_packages.yml
