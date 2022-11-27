@@ -19,8 +19,6 @@
 
 - name: Enable Repositories
   ansible.builtin.command: dnf config-manager --set-enabled "{{ item }}"
-  args:
-    warn: false
   loop:
     - docker-ce-stable
     - enpass
@@ -84,7 +82,6 @@
   args:
     executable: /bin/bash
     chdir: /tmp
-    warn: no
 
 - name: Flatpak - Add Flathub Repository
   community.general.flatpak_remote:
