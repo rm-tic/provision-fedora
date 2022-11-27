@@ -61,14 +61,13 @@ pkgs:
   - p7zip
   - p7zip-plugins
   - packer
-  - peek
   - qbittorrent
   - terraform
   - timeshift
   - tmux
   - tree
   - uget
-  - vim-enhanced
+  - vim
   - VirtualBox
   - xclip
   - yt-dlp
