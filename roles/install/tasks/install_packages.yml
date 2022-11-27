@@ -6,7 +6,7 @@
   ansible.builtin.dnf:
     name: "{{ item.repo }}"
     state: present
-    disable_gpg_check: "{{ disable_gpg_check }}"
+    disable_gpg_check: "{{ item.disable_gpg_check }}"
   loop: "{{ repo_extra_dnf }}"
 
 - name: Install Extra Repositories from URL
