@@ -1,6 +1,24 @@
 ---
 # vars file for install
 
+repo_extra_dnf:
+  - repo: fedora-workstation-repositories
+    disable_gpg_check: no
+  - repo: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
+    disable_gpg_check: yes
+  - repo: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
+    disable_gpg_check: yes
+  - repo: https://dl.k6.io/rpm/repo.rpm
+    disable_gpg_check: yes
+
+repo_extra_url:
+  - repo: https://download.docker.com/linux/fedora/docker-ce.repo
+    path: /etc/yum.repos.d/docker-ce.repo
+  - repo: https://yum.enpass.io/enpass-yum.repo
+    path: /etc/yum.repos.d/enpass-yum.repo
+  - repo: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+    path: /etc/yum.repos.d/hashicorp.repo
+
 remove_pkgs:
   - gnome-boxes
   - gnome-calendar
@@ -20,21 +38,24 @@ pkgs_rpm:
 pkgs:
   - ansible-core
   - calibre
-  - '@container-management'
+  - containerd.io
   - curl
-  - cronie
   - dnf-automatic
   - dnf-plugins-core
+  - docker-ce
+  - docker-ce-cli
+  - docker-compose-plugin
   - enpass
   - flameshot
   - gimp
   - gnome-tweaks
   - google-chrome-stable
   - gparted
-  - HandBrake-gui
   - htop
   - ImageMagick
   - jq
+  - NetworkManager-fortisslvpn
+  - NetworkManager-fortisslvpn-gnome
   - openfortivpn
   - openssh-server
   - p7zip
@@ -47,11 +68,10 @@ pkgs:
   - tmux
   - tree
   - uget
-  - vagrant
   - vim-enhanced
   - VirtualBox
   - xclip
-  - youtube-dl
+  - yt-dlp
   - zsh
 
 flatpak_pkgs:
@@ -63,6 +83,5 @@ flatpak_pkgs:
   - in.srev.guiscrcpy
   - io.dbeaver.DBeaverCommunity
   - io.github.celluloid_player.Celluloid
-  - io.typora.Typora
   - net.ankiweb.Anki
-  - org.onlyoffice.desktopeditors
+  - com.wps.Office

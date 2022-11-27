@@ -1,3 +1,5 @@
 ---
 # tasks file for config
-- include: config.yml
+
+- name: Starting Fedora 37 OS Settings
+  include_tasks: config.yml

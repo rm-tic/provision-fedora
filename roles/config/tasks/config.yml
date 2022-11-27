@@ -14,14 +14,6 @@
     - "/home/{{ ansible_env.SUDO_USER }}/.fonts"
     - "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers"
 
-- name: Update /etc/dnf/dnf.conf
-  ansible.builtin.copy:
-    src: dnf.conf
-    dest: /etc/dnf
-    owner: root
-    group: root
-    mode: '0644'
-
 - name: Copy Custom Config Files to Home Directory
   ansible.builtin.copy:
     src: "{{ item.src }}"
@@ -39,16 +31,6 @@
     group: "{{ ansible_env.SUDO_USER }}"
     mode: '0644'
 
-- name: Copy automatic.conf
-  ansible.builtin.template:
-    src: automatic.conf.j2
-    dest: /etc/dnf/automatic.conf
-    owner: root
-    group: root
-    mode: '0644'
-  notify:
-    - Enable dnf-automatic.timer
-
 - name: Copy Pictures to ~/Imagens/Wallpapers
   ansible.builtin.copy:
     src: root.png
@@ -65,14 +47,6 @@
     group: "{{ ansible_env.SUDO_USER }}"
     mode: '0644'
   loop: "{{ url_fonts }}"
-
-- name: Set Default Wallpaper
-  community.general.dconf:
-    key: "{{ item.key }}"
-    value: "{{ item.value }}"
-    state: present
-  become_user: "{{ ansible_env.SUDO_USER }}"
-  loop: "{{ wallpaper }}"
 
 - name: Load MesloLGS Fonts
   ansible.builtin.shell: >

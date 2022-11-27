@@ -5,5 +5,10 @@
   roles:
     - role: install
       tags: role_install
+
     - role: config
+      vars:
+        hostname: thorin
+        git_name: "Rodrigo Martins"
+        git_mail: "rodrigomartins.tic@gmail.com"
       tags: role_config

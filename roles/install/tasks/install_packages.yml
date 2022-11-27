@@ -1,43 +1,32 @@
 ---
 - name: Get Github Packages
-  include_tasks: get_github_packages.yml
+  include_tasks: github_packages.yml
 
-- name: Install Fedora Workstation Repository 
+- name: Install Extra Repositories from DNF 
   ansible.builtin.dnf:
-    name: fedora-workstation-repositories
+    name: "{{ item.repo }}"
     state: present
+    disable_gpg_check: "{{ disable_gpg_check }}"
+  loop: "{{ repo_extra_dnf }}"
 
-- name: Install Fedora Fusion Repository 
-  ansible.builtin.dnf:
-    name: "{{ item }}"
-    state: present
-    disable_gpg_check: yes
-  loop:
-    - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
-    - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
-
-- name: Install Enpass Repository
+- name: Install Extra Repositories from URL
   ansible.builtin.get_url:
-    url: https://yum.enpass.io/enpass-yum.repo
-    dest: /etc/yum.repos.d/enpass-yum.repo
+    url: "{{ item.repo }}"
+    dest: "{{ item.path }}"
     mode: '0644'
     owner: root
+  loop: "{{ repo_extra_url }}"
 
-- name: Install Hashicorp Repository
-  ansible.builtin.get_url:
-    url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
-    dest: /etc/yum.repos.d/hashicorp.repo
-    mode: '0644'
-    owner: root
-
-- name: Enable YUM Repositories
+- name: Enable Repositories
   ansible.builtin.command: dnf config-manager --set-enabled "{{ item }}"
   args:
     warn: false
   loop:
+    - docker-ce-stable
     - enpass
     - google-chrome
     - hashicorp
+    - k6
 
 - name: DNF Cache Update
   ansible.builtin.dnf:

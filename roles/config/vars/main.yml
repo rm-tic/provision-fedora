@@ -1,15 +1,6 @@
 ---
 # vars file for config
 
-hostname: thorin
-
-git_name: "Rodrigo Martins"
-git_mail: "rodrigomartins.tic@gmail.com"
-
-wallpaper:
-- key: /org/gnome/desktop/background/picture-uri #Wallpaper
-  value: "'file:///home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png'"
-
 config_files:
 - src: .bash_aliases
   dest: /home/{{ ansible_env.SUDO_USER }}/.bashrc.d
