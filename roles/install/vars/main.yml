@@ -66,7 +66,6 @@ pkgs:
   - timeshift
   - tmux
   - tree
-  - uget
   - vim
   - VirtualBox
   - xclip
@@ -74,13 +73,15 @@ pkgs:
   - zsh
 
 flatpak_pkgs:
+  - com.visualstudio.code
   - com.discordapp.Discord
   - com.getpostman.Postman
-  - com.obsproject.Studio
-  - com.visualstudio.code
-  - com.slack.Slack
-  - in.srev.guiscrcpy
-  - io.dbeaver.DBeaverCommunity
-  - io.github.celluloid_player.Celluloid
-  - net.ankiweb.Anki
   - com.wps.Office
+  - com.slack.Slack
+  - com.obsproject.Studio
+  - net.ankiweb.Anki
+  - net.agalwood.Motrix
+  - net.davidotek.pupgui2
+  - io.github.celluloid_player.Celluloid
+  - io.dbeaver.DBeaverCommunity
+  - in.srev.guiscrcpy
