@@ -80,6 +80,7 @@ flatpak_pkgs:
   - com.slack.Slack
   - com.obsproject.Studio
   - net.ankiweb.Anki
+  - net.lutris.Lutris
   - net.agalwood.Motrix
   - net.davidotek.pupgui2
   - io.github.celluloid_player.Celluloid
