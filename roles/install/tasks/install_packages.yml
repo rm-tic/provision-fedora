@@ -25,6 +25,7 @@
     dest: "/tmp/{{ item.name }}"
     mode: '0644'
   loop: "{{ pkgs_rpm }}"
+  ignore_errors: true
 
 - name: Install RPM Packages
   ansible.builtin.dnf:
@@ -32,17 +33,20 @@
     state: present
     disable_gpg_check: yes
   loop: "{{ pkgs_rpm }}"
+  ignore_errors: true
 
 - name: Install Packages from Repository
   ansible.builtin.dnf:
     name: "{{ pkgs }}"
     state: latest
+  ignore_errors: True
 
 - name: Install vim-default-editor
   ansible.builtin.dnf:
     name: vim-default-editor
     state: latest
     allowerasing: yes
+  ignore_errors: true
 
 - name: Install Oh My Zsh!
   ansible.builtin.shell: >
@@ -84,8 +88,10 @@
     state: present
     method: system
   with_items: "{{ flatpak_pkgs }}"
+  ignore_errors: true
 
 - name: Upgrade Packages
   ansible.builtin.dnf:
     name: "*"
     state: latest
+  ignore_errors: true
