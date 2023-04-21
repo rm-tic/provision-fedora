@@ -9,22 +9,10 @@
     disable_gpg_check: "{{ item.disable_gpg_check }}"
   loop: "{{ repo_extra_dnf }}"
 
-- name: Install Extra Repositories from URL
-  ansible.builtin.get_url:
-    url: "{{ item.repo }}"
-    dest: "{{ item.path }}"
-    mode: '0644'
-    owner: root
-  loop: "{{ repo_extra_url }}"
-
-- name: Enable Repositories
-  ansible.builtin.command: dnf config-manager --set-enabled "{{ item }}"
-  loop:
-    - docker-ce-stable
-    - enpass
-    - google-chrome
-    - hashicorp
-    - k6
+- name: Enable Envycontrol COPR Repository
+  community.general.copr:
+    state: present
+    name: sunwire/envycontrol
 
 - name: DNF Cache Update
   ansible.builtin.dnf:

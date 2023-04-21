@@ -8,48 +8,26 @@ repo_extra_dnf:
     disable_gpg_check: yes
   - repo: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
     disable_gpg_check: yes
-  - repo: https://dl.k6.io/rpm/repo.rpm
-    disable_gpg_check: yes
-
-repo_extra_url:
-  - repo: https://download.docker.com/linux/fedora/docker-ce.repo
-    path: /etc/yum.repos.d/docker-ce.repo
-  - repo: https://yum.enpass.io/enpass-yum.repo
-    path: /etc/yum.repos.d/enpass-yum.repo
-  - repo: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
-    path: /etc/yum.repos.d/hashicorp.repo
 
 remove_pkgs:
   - gnome-boxes
-  - gnome-calendar
   - gnome-contacts
   - gnome-maps
   - gnome-tour
   - libreoffice*
-  - mediawriter
   - rhythmbox
 
 pkgs_rpm:
   - url: "{{ url_rpm_etcher.stdout }}"
     name: etcher.x86_64.rpm
-  - url: https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
-    name: teamviewer.x86_64.rpm 
 
 pkgs:
-  - ansible-core
+  - akmod-nvidia
   - calibre
-  - containerd.io
   - curl
-  - dnf-automatic
   - dnf-plugins-core
-  - docker-ce
-  - docker-ce-cli
-  - docker-compose-plugin
-  - enpass
   - flameshot
   - gimp
-  - gnome-tweaks
-  - google-chrome-stable
   - gparted
   - htop
   - ImageMagick
@@ -60,29 +38,34 @@ pkgs:
   - openssh-server
   - p7zip
   - p7zip-plugins
-  - packer
-  - qbittorrent
+  - podman
+  - podman-compose
+  - python3-envycontrol
+  - steam
   - terraform
   - timeshift
   - tmux
   - tree
   - vim
-  - VirtualBox
   - xclip
+  - xorg-x11-drv-nvidia-cuda
   - yt-dlp
   - zsh
 
 flatpak_pkgs:
-  - com.visualstudio.code
+  - com.brave.Browser
   - com.discordapp.Discord
   - com.getpostman.Postman
-  - com.wps.Office
-  - com.slack.Slack
+  - com.google.Chrome
   - com.obsproject.Studio
-  - net.ankiweb.Anki
-  - net.lutris.Lutris
-  - net.agalwood.Motrix
-  - net.davidotek.pupgui2
-  - io.github.celluloid_player.Celluloid
-  - io.dbeaver.DBeaverCommunity
+  - com.slack.Slack
+  - com.visualstudio.code
   - in.srev.guiscrcpy
+  - io.dbeaver.DBeaverCommunity
+  - io.enpass.Enpass
+  - io.github.celluloid_player.Celluloid
+  - net.agalwood.Motrix
+  - net.ankiweb.Anki
+  - net.davidotek.pupgui2
+  - net.lutris.Lutris
+  - org.onlyoffice.desktopeditors

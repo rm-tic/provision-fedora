@@ -31,14 +31,6 @@
     group: "{{ ansible_env.SUDO_USER }}"
     mode: '0644'
 
-- name: Copy Pictures to ~/Imagens/Wallpapers
-  ansible.builtin.copy:
-    src: root.png
-    dest: "/home/{{ ansible_env.SUDO_USER }}/Imagens/Wallpapers/root.png"
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: '0644'
-
 - name: Download MesloLGS Fonts
   ansible.builtin.get_url:
     url: "{{ item.url }}"

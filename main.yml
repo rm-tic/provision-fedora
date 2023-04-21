@@ -8,7 +8,7 @@
 
     - role: config
       vars:
-        hostname: thorin
+        hostname: legion5i
         git_name: "Rodrigo Martins"
         git_mail: "rodrigomartins.tic@gmail.com"
       tags: role_config

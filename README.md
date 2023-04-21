@@ -4,14 +4,14 @@
   <img src="img/fedora_logo.png">
 </p>
 
-#### Distro suportada: Fedora 37
+#### Supported Distribution: Fedora 38
 
-Este playbook provisiona um workstation recém formatado com Fedora 37
+Provisions a workstation with Fedora 38
 
-- Instala diversos pacotes GUI/CLI
-- Arquivos de configuração customizados
-- Temas / Terminal customizados
-
+- Install Packages
+- Custom Settings Files
+- Custom Terminal ZSH PowerLevel10k
+- NVIDIA Drivers / Envycontrol
 
 <br>
 <br>
