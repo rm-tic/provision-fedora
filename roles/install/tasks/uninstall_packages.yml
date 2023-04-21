@@ -4,14 +4,10 @@
     name: "{{ remove_pkgs }}"
     state: absent
 
-- name: Disable Fedora COPR Repositories
-  community.general.copr:
-    state: absent
-    name: phracek/PyCharm
-
 - name: Disable Fedora Repositories
   ansible.builtin.command: dnf config-manager --set-disabled "{{ item }}"
   loop:
+    - copr:copr.fedorainfracloud.org:phracek:PyCharm
     - google-chrome
     - rpmfusion-nonfree-nvidia-driver
     - rpmfusion-nonfree-steam
