@@ -39,7 +39,7 @@
   ansible.builtin.dnf:
     name: "{{ pkgs }}"
     state: latest
-  ignore_errors: True
+  ignore_errors: true
 
 - name: Install vim-default-editor
   ansible.builtin.dnf:
