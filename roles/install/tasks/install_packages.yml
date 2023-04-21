@@ -10,7 +10,7 @@
   loop: "{{ repo_extra_dnf }}"
 
 - name: Enable Envycontrol COPR Repository
-  ansible.builtin.command: dnf copr enable sunwire/envycontrol
+  ansible.builtin.command: dnf copr enable -y sunwire/envycontrol
 
 - name: DNF Cache Update
   ansible.builtin.dnf:
