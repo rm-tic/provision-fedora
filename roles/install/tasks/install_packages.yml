@@ -9,6 +9,9 @@
     disable_gpg_check: "{{ item.disable_gpg_check }}"
   loop: "{{ repo_extra_dnf }}"
 
+- name: Enable Hashicorp Repository
+  ansible.builtin.command: dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+
 - name: Enable Envycontrol COPR Repository
   ansible.builtin.command: dnf copr enable -y sunwire/envycontrol
 
