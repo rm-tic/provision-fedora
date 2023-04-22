@@ -58,12 +58,15 @@ flatpak_pkgs:
   - com.brave.Browser
   - com.discordapp.Discord
   - com.getpostman.Postman
+  - com.github.finefindus.eyedropper
+  - com.github.rajsolai.textsnatcher
   - com.google.Chrome
   - com.obsproject.Studio
   - com.slack.Slack
   - com.visualstudio.code
   - com.usebottles.bottles
   - in.srev.guiscrcpy
+  - info.febvre.Komikku
   - io.dbeaver.DBeaverCommunity
   - io.enpass.Enpass
   - io.github.celluloid_player.Celluloid
@@ -71,4 +74,5 @@ flatpak_pkgs:
   - net.ankiweb.Anki
   - net.davidotek.pupgui2
   - net.lutris.Lutris
+  - org.gnome.World.PikaBackup
   - org.onlyoffice.desktopeditors
