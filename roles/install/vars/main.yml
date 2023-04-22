@@ -44,6 +44,7 @@ pkgs:
   - python3-envycontrol
   - steam
   - terraform
+  - tilix
   - timeshift
   - tmux
   - tree
