@@ -28,6 +28,7 @@ pkgs:
   - dnf-plugins-core
   - flameshot
   - gimp
+  - gnome-extensions-app
   - gparted
   - htop
   - ImageMagick
@@ -60,6 +61,7 @@ flatpak_pkgs:
   - com.obsproject.Studio
   - com.slack.Slack
   - com.visualstudio.code
+  - com.usebottles.bottles
   - in.srev.guiscrcpy
   - io.dbeaver.DBeaverCommunity
   - io.enpass.Enpass
