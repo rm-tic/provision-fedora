@@ -29,6 +29,7 @@ pkgs:
   - flameshot
   - gimp
   - gnome-extensions-app
+  - gnome-tweaks
   - gparted
   - htop
   - ImageMagick
@@ -50,7 +51,6 @@ pkgs:
   - tree
   - vim
   - xclip
-  - xorg-x11-drv-nvidia-cuda
   - yt-dlp
   - zsh
 
@@ -74,5 +74,7 @@ flatpak_pkgs:
   - net.ankiweb.Anki
   - net.davidotek.pupgui2
   - net.lutris.Lutris
+  - org.gnome.Firmware
+  - org.gnome.Solanum
   - org.gnome.World.PikaBackup
   - org.onlyoffice.desktopeditors
