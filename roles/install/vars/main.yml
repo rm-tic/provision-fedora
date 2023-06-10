@@ -40,10 +40,7 @@ pkgs:
   - openssh-server
   - p7zip
   - p7zip-plugins
-  - podman
-  - podman-compose
   - python3-envycontrol
-  - steam
   - terraform
   - tilix
   - timeshift
@@ -55,8 +52,6 @@ pkgs:
   - zsh
 
 flatpak_pkgs:
-  - com.brave.Browser
-  - com.discordapp.Discord
   - com.getpostman.Postman
   - com.github.finefindus.eyedropper
   - com.github.rajsolai.textsnatcher
@@ -64,16 +59,12 @@ flatpak_pkgs:
   - com.obsproject.Studio
   - com.slack.Slack
   - com.visualstudio.code
-  - com.usebottles.bottles
   - in.srev.guiscrcpy
-  - info.febvre.Komikku
   - io.dbeaver.DBeaverCommunity
   - io.enpass.Enpass
   - io.github.celluloid_player.Celluloid
   - net.agalwood.Motrix
   - net.ankiweb.Anki
-  - net.davidotek.pupgui2
-  - net.lutris.Lutris
   - org.gnome.Firmware
   - org.gnome.Solanum
   - org.gnome.World.PikaBackup
